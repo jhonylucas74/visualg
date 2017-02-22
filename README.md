@@ -37,13 +37,36 @@ fimalgoritmo
 ```js
 var ComandLine = {
   /*Linha original.*/
-  comand: 'a <- 3',
+  comand: 'a <- 2',
   /*Tipo do comando. No caso, atribuição.*/
   type: ATTRIBUTION,
   /*Linha em que o comando foi encontrado.*/
   line: 9,
+  /*Escopo da linha de comando.*/
+  scope: GLOBAL,
   /*A linha de comando pode possuir todo um bloco
   de códigos interno. Caso do Se, Para, Enquanto e etc. */
   code: [ComandLine]
 }
 ```
+
+#### Linha de comando: Tipos
+
+Todos os tipos de comando possíveis.
+
+* ``ALLOCATION``  - Alocação de variável no escopo.
+* ``ATTRIBUTION`` - Atribuição de valor.
+* ``FUNCTION_CALL`` - Chamada de função.
+* ``LOGICAL`` - Comparação lógica.
+* ``SWITCH_LOGICAL`` - Comparação lógica.
+* ``WHILE_LOOP`` - Laço de repetição.
+* ``FOR_LOOP`` - Laço de repetição.
+* ``FUNCTION_DEFINITION`` - Criação de função (com escopo próprio).
+
+Dos comandos citados acima somente esses listados abaixo possuem código interno que podem conter qualquer tipo de comando exceto ``ALLOCATION`` e ``FUNCTION_DEFINITION``.
+
+* ``LOGICAL``
+* ``SWITCH_LOGICAL``
+* ``WHILE_LOOP``
+* ``WHILE_LOOP``
+* ``FUNCTION_DEFINITION.``
