@@ -63,6 +63,8 @@ Todos os tipos de comando possíveis.
 * ``FOR_LOOP`` - Laço de repetição.
 * ``FUNCTION_DEFINITION`` - Criação de função (com escopo próprio).
 
+Obs: escreval, escreva e leia são do tipo ``FUNCTION_CALL``.
+
 Dos comandos citados acima somente esses listados abaixo possuem código interno que podem conter qualquer tipo de comando exceto ``ALLOCATION`` e ``FUNCTION_DEFINITION``.
 
 * ``LOGICAL``
@@ -70,3 +72,45 @@ Dos comandos citados acima somente esses listados abaixo possuem código interno
 * ``WHILE_LOOP``
 * ``WHILE_LOOP``
 * ``FUNCTION_DEFINITION.``
+
+Se nosso primeiro algoritmo em portugal apresentado no inicio fosse convertido ele ficaria assim:
+
+``` js
+[
+  {
+    comand: 'a, b, soma: inteiro',
+    type: ALLOCATION,
+    line: 5,
+    scope: GLOBAL,
+    code: []
+  },
+  {
+    comand: 'a <- 2',
+    type: ATTRIBUTION,
+    line: 9,
+    scope: GLOBAL,
+    code: []
+  },
+  {
+    comand: 'b <- 3',
+    type: ATTRIBUTION,
+    line: 10,
+    scope: GLOBAL,
+    code: []
+  },
+  {
+    comand: 'soma <- a + b',
+    type: ATTRIBUTION,
+    line: 11,
+    scope: GLOBAL,
+    code: []
+  },
+  {
+    comand: 'escreval(\'Resultado da soma: \', soma)',
+    type: FUNCTION_CALL,
+    line: 13,
+    scope: GLOBAL,
+    code: []
+  }
+]
+```
