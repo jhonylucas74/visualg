@@ -5,11 +5,11 @@ O Visualg é biblioteca escrita em javascript para execução de código escrito
 
 #### Motivação
 
-Esse módulo foi criado pra ser utilizado no [AndroiVisual](https://play.google.com/store/apps/details?id=av.androidvisual&hl=pt_BR) afim de subtituir a lógica feita em java para uma globalização mais interessante utilizando o js. No mais, a idéia é que a partir dessa premissa possa surgir mais produtos que possam ser inteligados utilizando o visualg.
+Esse módulo foi criado pra ser utilizado no [AndroiVisual](https://play.google.com/store/apps/details?id=av.androidvisual&hl=pt_BR) afim de subtituir a lógica feita em java para uma globalização mais interessante utilizando o js. No mais, a idéia é que a partir dessa premissa possa surgir mais produtos que possam ser interligados utilizando o visualg.
 
 ### Projeto de execução do portugol
 
-A principio a ideia era simplesmente transpilar o portugol para o javascript. No entanto ao fazer a integração com um protótipo do androidvisual usando ionic foi encontrado um empasse na hora de executar o comando leia e ao mesmo tempo ter um rederização das informações a um nível aceitável. Por esse motivo foi necessário a mudança de paradigma e com esse repositório se dá inicio a um versão mais parecida com a escrita em java mas utilizando js.
+A principio a ideia era simplesmente transpilar o portugol para o javascript. No entanto ao fazer a integração com um protótipo do androidvisual usando ionic foi encontrado um empasse na hora de executar o comando leia e ao mesmo tempo ter um rederização das informações a um nível aceitável. Por esse motivo foi necessário a mudança de paradigma e com esse repositório se dá inicio a uma versão mais parecida com a escrita em java mas utilizando js.
 
 
 Abaixo segue o algoritmo inicial base para entendimento do processo que deverá ser realizado pelo visualg.js.
@@ -44,15 +44,15 @@ var ComandLine = {
   line: 9,
   /*Escopo da linha de comando.*/
   scope: GLOBAL,
-  /*A linha de comando pode possuir todo um bloco
-  de códigos interno. Caso do Se, Para, Enquanto e etc. */
+  /*A linha de comando pode possuir todo um
+  bloco de códigos interno. Caso do Se, Para, Enquanto e etc.*/
   code: [ComandLine]
 }
 ```
 
 #### Linha de comando: Tipos
 
-Todos os tipos de comando possíveis.
+Todos os tipos de comandos possíveis.
 
 * ``ALLOCATION``  - Alocação de variável no escopo.
 * ``ATTRIBUTION`` - Atribuição de valor.
