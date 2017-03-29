@@ -45,26 +45,32 @@ module.exports = [
     code: []
   },
   {
-    comand: 'se soma > 9 entao',
-    type: LOGICAL,
-    line: 13,
+    comand: 'escolha soma',
+    type: SWITCH_LOGICAL,
+    line: 12,
     scope: GLOBAL,
-    code: [{
-      comand: 'escreval(\'passou no se: \', soma)',
-      type: FUNCTION_CALL,
-      line: 13,
-      scope: GLOBAL,
-      code: []
+    options: [{
+      value: [9,8],
+      code: [{
+        comand: 'escreval(\'Entrei no caso.\')',
+        type: FUNCTION_CALL,
+        line: 13,
+        scope: GLOBAL,
+        code: []
+      }]
     },
     {
-      comand: 'soma <- soma + 1',
-      type: ATTRIBUTION,
-      line: 11,
-      scope: GLOBAL,
-      code: []
+      value: [9,8],
+      code: [{
+        comand: 'escreval(\'Entrei no caso 2.\')',
+        type: FUNCTION_CALL,
+        line: 13,
+        scope: GLOBAL,
+        code: []
+      }]
     }],
-    else: [{
-      comand: 'escreval(\'não passou no se \')',
+    default: [{
+      comand: 'escreval(\'default.\')',
       type: FUNCTION_CALL,
       line: 13,
       scope: GLOBAL,

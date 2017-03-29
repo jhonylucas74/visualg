@@ -82,35 +82,64 @@ Se nosso primeiro algoritmo em portugal apresentado no inicio fosse convertido e
     type: ALLOCATION,
     line: 5,
     scope: GLOBAL,
-    code: []
+    code: [ComandLine]
   },
   {
     comand: 'a <- 2',
     type: ATTRIBUTION,
     line: 9,
     scope: GLOBAL,
-    code: []
+    code: [ComandLine]
   },
   {
     comand: 'b <- 3',
     type: ATTRIBUTION,
     line: 10,
     scope: GLOBAL,
-    code: []
+    code: [ComandLine]
   },
   {
     comand: 'soma <- a + b',
     type: ATTRIBUTION,
     line: 11,
     scope: GLOBAL,
-    code: []
+    code: [ComandLine]
   },
   {
     comand: 'escreval(\'Resultado da soma: \', soma)',
     type: FUNCTION_CALL,
     line: 13,
     scope: GLOBAL,
-    code: []
+    code: [ComandLine]
   }
 ]
+```
+
+Estrutura do condicional ``se | LOGICAL``.
+
+``` js
+{
+  comand: 'se soma > 9 entao',
+  type: LOGICAL,
+  line: 13,
+  scope: GLOBAL,
+  code: [ComandLine],
+  else: [ComandLine]
+}
+```
+
+Estrutura do condicional ``escolha | SWITCH_LOGICAL``.
+
+``` js
+{
+  comand: 'escolha soma',
+  type: SWITCH_LOGICAL,
+  line: 13,
+  scope: GLOBAL,
+  options: [{
+    value: [],
+    code: [ComandLine]
+  }],
+  default: [ComandLine]
+}
 ```

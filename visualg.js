@@ -143,6 +143,34 @@ function runLogical (data) {
   }
 }
 
+/* Comando Escolha | Caso. */
+function runSwitchLogical (data){
+  var expression = changeVarsValues(data.comand.match(/escolha(.*)$/)[1], data.scope).join('');
+
+  try {
+    var content = eval(expression);
+  } catch (e) {
+    return console.log(e);
+  }
+
+  var executeDefault = true;
+
+  for (let option of data.options){
+    for (let value of option.value){
+      if (value == content){
+        executeDefault = false;
+        for(let comand of option.code)
+          runComands(comand);
+      }
+    }
+  }
+
+  if(executeDefault)
+    for(let comand of data.default)
+      runComands(comand);
+
+}
+
 /* Mostre todas as variáveis. */
 function consoleShowVariables (){
   var escopes_names = Object.keys(scopes);
@@ -169,6 +197,10 @@ function runComands (comand){
 
   if(comand.type == LOGICAL)
     runLogical(comand);
+
+  if(comand.type == SWITCH_LOGICAL)
+    runSwitchLogical(comand);
+
 }
 
 // Executando todos os comandos.
