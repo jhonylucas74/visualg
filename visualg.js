@@ -8,77 +8,7 @@ const FOR_LOOP = 'for loop';
 const FUNCTION_DEFINITION = 'function definition';
 const GLOBAL = 'global';
 
-var comands = [
-  {
-    comand: 'a, b, soma: inteiro',
-    type: ALLOCATION,
-    line: 5,
-    scope: GLOBAL,
-    code: []
-  },
-  {
-    comand: 'valores: vetor [1..20] de real',
-    type: ALLOCATION,
-    line: 6,
-    scope: GLOBAL,
-    code: []
-  },
-  {
-    comand: 'a <- 2 + 4',
-    type: ATTRIBUTION,
-    line: 9,
-    scope: GLOBAL,
-    code: []
-  },
-  {
-    comand: 'b <- 3',
-    type: ATTRIBUTION,
-    line: 10,
-    scope: GLOBAL,
-    code: []
-  },
-  {
-    comand: 'soma <- a + b',
-    type: ATTRIBUTION,
-    line: 11,
-    scope: GLOBAL,
-    code: []
-  },
-  {
-    comand: 'se soma > 9 entao',
-    type: LOGICAL,
-    line: 13,
-    scope: GLOBAL,
-    code: [{
-      comand: 'escreval(\'passou no se: \', soma)',
-      type: FUNCTION_CALL,
-      line: 13,
-      scope: GLOBAL,
-      code: []
-    },
-    {
-      comand: 'soma <- soma + 1',
-      type: ATTRIBUTION,
-      line: 11,
-      scope: GLOBAL,
-      code: []
-    }],
-    else: [{
-      comand: 'escreval(\'não passou no se \')',
-      type: FUNCTION_CALL,
-      line: 13,
-      scope: GLOBAL,
-      code: []
-    }]
-  },
-  {
-    comand: 'escreval(\'Resultado da soma: \', soma)',
-    type: FUNCTION_CALL,
-    line: 13,
-    scope: GLOBAL,
-    code: []
-  }
-];
+var comands = require('./algoritmo');
 
 /* Escopos disponíveis do algoritmo.
  De inicío o único criado é o global. */
@@ -88,6 +18,7 @@ var scopes = {
   }
 };
 
+/* Funções de chamada disponíveis */
 var functions = {
   escreval: (...args) => {
     console.log(args.join(''));
@@ -97,6 +28,7 @@ var functions = {
   }
 }
 
+/* Criando uma variável no escopo desejado. */
 function createVariable (scope, variable, obj){
   if (!scopes[scope]) scopes[scope] = {vars: {}};
   scopes[scope].vars[variable] = obj;
@@ -131,13 +63,13 @@ function runAllocation (data) {
   }
 }
 
-/* retorna valor de uma varável de acordo com escopo*/
+/* Retorna valor de uma varável de acordo com escopo.*/
 function getValue (variable, scope) {
   return scopes[scope].vars[variable].value;
 }
 
 /* Alterando escopo de variáveis para execução do eval.*/
-function changeVarsValues(str, scope) {
+function changeVarsValues (str, scope) {
   var content = str.split(/(\+|\-|\*|\/|\<\=|\>\=|\=\=|\=|\<|\>)/);
   /* !!!!!! <<<<<  BUG QUANDO TEM UM DESSES SIMBOLOS ACIMA EM UMA STRING*/
 
@@ -150,7 +82,7 @@ function changeVarsValues(str, scope) {
 
   // todas as variáveis disponíveis do escopo
   var variables = new RegExp(Object.keys(scopes[scope].vars).join('|'));
-  // Trocando variáveis pelo valor de escopo.
+  // Trocando nomes de variáveis pelo valor delas.
   content = content.map((word) => {
     if(!/\'|\"/.test(word) || !/\+|\-|\*|\/|\<\=|\>\=|\=\=|\=|\<|\>/){
       if(variables.test(word))
@@ -198,17 +130,18 @@ function runLogical (data) {
   );
 
   var result = changeVarsValues(logic, data.scope);
+  /* Caso a execução do código seja verdadeiro irá executar todo
+   o código do block filho.*/
   if(eval(result.join(''))){
     for(let comand of data.code)
       runComands(comand);
   } else {
+    // Caso falso e caso tenha uma else filha, executa.
     if (data.else != undefined && data.else != null)
-    for(let comand of data.else)
-      runComands(comand);
+      for(let comand of data.else)
+        runComands(comand);
   }
-
 }
-
 
 /* Mostre todas as variáveis. */
 function consoleShowVariables (){
@@ -223,6 +156,7 @@ function consoleShowVariables (){
   }
 }
 
+// Executa o comando de acordo com seu tipo.
 function runComands (comand){
   if(comand.type == ALLOCATION)
     runAllocation(comand);
@@ -232,12 +166,13 @@ function runComands (comand){
 
   if(comand.type == FUNCTION_CALL)
     runFunctionCall(comand);
-    
+
   if(comand.type == LOGICAL)
     runLogical(comand);
 }
 
-for( let comand of comands) {
+// Executando todos os comandos.
+for(let comand of comands) {
   runComands(comand);
 }
 
